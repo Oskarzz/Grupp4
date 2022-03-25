@@ -1,0 +1,32 @@
+﻿@model EventMVC.Models.Booking
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Radera bokning</h1>
+
+<h3>Är du säker på att du vill radera bokningen?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Event)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Event.Id)
+        </dd class>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Radera" class="btn btn-danger" /> |
+        <a class="btn btn-secondary btn-md my-0 p" asp-action="Index">Tillbaka</a>
+    </form>
+</div>

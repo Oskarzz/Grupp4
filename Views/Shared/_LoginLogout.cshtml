@@ -1,0 +1,10 @@
+﻿<!-- If user is logged in, these will be shown in the header-->
+@if (User.Identity.IsAuthenticated)
+{
+    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Booking" asp-action="Index">Bokningar</a></li>
+    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Logga ut</a></li>    
+}
+else
+{
+    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Loggain">Logga in</a></li> <!-- User NOT logged in -->
+}

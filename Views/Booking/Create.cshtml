@@ -1,0 +1,119 @@
+﻿@model EventMVC.Models.EventBooking  
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<section class="h-100 gradient-custom">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Varukorg</h5>
+                    </div>
+                    <div class="card-body-2 mt-5 mx-5">
+                        <!-- Single item -->
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                <!-- Image -->
+                                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                    <div class="w-100">
+                                        @{
+                                            try
+                                            {
+                                                var base64 = Convert.ToBase64String(Model.Event.Picture);
+                                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                                                <img class="img-fluid" src="@imgSrc" />
+                                            }
+                                            catch
+                                            {
+                                                <p>no image</p>
+                                            }
+                                        }
+                                    </div>
+                                    <a href="#!">
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                    </a>
+                                </div>
+                                <!-- Image -->
+                            </div>
+
+                            <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                <!-- Data -->
+                                <p><strong>@Html.DisplayFor(Model => Model.Event.Name)</strong></p>
+                                <p>@Html.DisplayFor(Model => Model.Event.Date)</p>
+                                <p>@Html.DisplayFor(Model => Model.Event.StartTime) - @Html.DisplayFor(Model => Model.Event.EndTime)</p>
+
+                                <button type="button" class="btn btn-dark btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                                        title="Remove item">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <!-- Data -->
+                            </div>
+                        
+                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                <!-- Quantity -->
+                                <div class="d-flex mb-4" style="max-width: 300px">
+                                    <button class="btn btn-secondary px-3 ms-2" style="height:100%"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <form asp-action="Create">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">                                           
+                                            <input asp-for="Booking.EventId" type="hidden" class="form-control" />
+                                            <input asp-for="Booking.Amount" type="hidden" class="form-control" />
+                                            <input asp-for="Event.Price" type="hidden" class="form-control" />
+                                            <input asp-for="Booking.Quantity" class="form-control" />
+                                            <input type="submit" value="Gå till kassan" class="ml-1 my-2 btn btn-dark" />
+                                        </div>
+
+                                    </form>
+                                    <button class="btn btn-secondary px-3 ms-2" style="height:100%"
+                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Quantity -->
+                                <!-- Price -->
+                                <p class="text-start text-md-center">
+                                    <strong>@Html.DisplayFor(Model => Model.Event.Price) kr/styck</strong>
+                                </p>
+                                <!-- Price -->
+                            </div>
+                        </div>
+                            
+                        </div>
+                        <!-- Single item -->
+
+                    </div>
+                </div>
+
+                <div class="card mb-4 px-4">
+                    <div class="card-body-2">
+                        <p><strong>Vi accepterar</strong></p>
+                        <img class="me-2" style="width:55px"
+                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                             alt="Visa" />
+                        <img class="me-2" style="width:55px"
+                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                             alt="American Express" />
+                        <img class="me-2" style="width:55px"
+                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                             alt="Mastercard" />
+                        <img class="me-2" style="width:55px"
+                             src="~/bilder/paypal-logo-0.png"
+                             alt="PayPal acceptance mark" />
+                        <img class="me-2" style="width:55px"
+                             src="~/bilder/Klarna_Logo.png"
+                             alt="Klarna" />
+                    </div>
+                </div>
+                
+            </div>            
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,97 @@
+﻿@model EventMVC.Models.Event
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+                @{
+                    try
+                    {
+                        var base64 = Convert.ToBase64String(Model.Picture);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        <img class="img-fluid" src="@imgSrc" />
+                    }
+                    catch
+                    {
+                        <p>no image</p>
+                    }
+                }
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-md-6 mb-4">
+                
+                
+                <!--Content-->
+                <div class="p-4">
+                    <h2><b>@Html.DisplayFor(model => model.Name)</b></h2>
+                    <div class="mb-3">
+                        <a href="">
+                            <span class="badge purple mr-1">
+
+                                @Html.DisplayFor(model => model.StartTime) - @Html.DisplayFor(model => model.EndTime)
+                            </span>
+                        </a>
+                        <a href="">
+                            <span class="badge blue mr-1">
+                                @Html.DisplayFor(model => model.Date)
+                            </span>
+                        </a>
+                        <a href="">
+                            <span class="badge red mr-1">
+                                @Html.DisplayFor(model => model.City) - @Html.DisplayFor(model => model.Location)
+                            </span>
+                        </a>
+                    </div>
+
+                    <p class="lead">
+                        <span class="mr-1">
+                            @Html.DisplayFor(model => model.Price) kr
+                        </span>
+
+                    </p>
+
+                    <p class="lead font-weight-bold">Beskrivning</p>
+
+                    <p>
+                        @Html.DisplayFor(model => model.Description)
+                    </p>
+
+                    <form class="d-flex justify-content-left">
+                        <!-- Default input -->
+
+                        <a class="btn btn-secondary btn-md my-0 mr-2 p" asp-area="" asp-controller="Booking" asp-action="Create" asp-route-id="@Model.Id" asp-route-Price="@Model.Price">Köp biljetter <i class="fa fa-shopping-cart ml-1"></i></a>
+                        <a class="btn btn-secondary btn-md my-0 p" href="http://193.10.202.71/GroupOne_WebClient/Product/ProductList?eventId=@Model.Id">Köp produkter </a>
+                        @*<a class="btn btn-secondary btn-md my-0 p" asp-action="Details" asp-route-id="@Model.Id">Köp Produkter <i class="fa fa-shopping-cart ml-1"></i></a>*@
+
+
+                    </form>
+
+                </div>
+                <!--Content-->
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+    </div>
+</main>
+
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+    <a class="btn btn-secondary btn-md my-0 p" asp-action="Edit" asp-route-id="@Model.Id">Ändra</a>
+    }
+
+   
+    | <a class="btn btn-secondary btn-md my-0 p" asp-action="Index">Tillbaka</a>
+</div>

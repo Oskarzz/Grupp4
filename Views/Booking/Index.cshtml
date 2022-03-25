@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EventMVC.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Bokningar</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Event.Price)
+            </td>
+            <td>
+                
+                <a class="btn btn-secondary btn-md my-0 p" asp-action="Details" asp-route-id="@item.Id">Info</a> |
+                <a class="btn btn-secondary btn-md my-0 p" asp-action="Delete" asp-route-id="@item.Id">Radera</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

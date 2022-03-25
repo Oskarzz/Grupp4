@@ -1,0 +1,88 @@
+﻿@model IEnumerable<EventMVC.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row" style="display:flex; flex-flow: row wrap; align-items:center;">
+        <div class="col-md-4 text-center mx-auto">
+            <div class="dropdown">
+                @using  (Html.BeginForm())
+                {
+                @Html.DropDownList("Category", new SelectList(ViewBag.Category, 0), new { @class = "btn btn-dark dropdown-toggle", @style = "width: 100%; display: block;" })
+                <input type="submit" class="btn btn-secondary btn-md my-0 p mt-3" id="search-btn" value="Sök" aria-label="Search" aria-describedby="search-addon" />
+                }
+
+                @*<form>
+            DropDownList("Category", new SelectList(ViewBag.Category, 0), new { class = "btn btn-dark dropdown-toggle", style = "width: 100%; display: block;" })
+            <input type="submit" class="btn btn-outline-dark" id="search-btn" value="Sök" aria-label="Search" aria-describedby="search-addon" />
+        </form>*@
+
+            </div>
+        </div>
+        @*<div class="col-md-4 text-center">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Sök" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-dark">Sök</button>
+            </div>
+        </div>*@
+    </div>
+</div>
+<div class="album py-5">
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            @foreach (var item in Model)
+            {
+            <div class="col">
+                <div class="card shadow-sm">
+
+                    <div class="bd-placeholder-img card-img-top" width="225" height="300">
+                        @{
+                                try
+                                {
+                                    var base64 = Convert.ToBase64String(item.Picture);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                            <img src="@imgSrc" width="300" />
+                                }
+                                catch
+                                {
+                            <p>no image</p>
+                                }
+
+                        }
+                    </div>
+                    
+                    <div class="card-body">
+                        <h3>@Html.DisplayFor(model => item.Name)</h3>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-secondary btn-md my-0 p" asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@item.Id">Läs mer</a>
+                            </div>
+
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                            <div class="btn-group">
+                                <a class="btn btn-secondary btn-md my-0 p" asp-area="" asp-controller="Event" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            </div>
+                            }
+                     
+
+                            <small class="text-muted"> Datum: @Html.DisplayFor(model => item.Date)</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            
+            
+            
+            }
+        </div>
+    </div>
+</div>
